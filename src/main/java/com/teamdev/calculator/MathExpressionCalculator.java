@@ -2,5 +2,5 @@ package com.teamdev.calculator;
 
 public interface MathExpressionCalculator {
 
-    double evaluate(String mathExpression) throws EvaluationException;
+    double evaluate(String mathExpression);
 }

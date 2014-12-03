@@ -4,13 +4,6 @@ import com.teamdev.calculator.impl.BinaryOperator;
 
 abstract public class AbstractBinaryOperator implements BinaryOperator {
 
-    static enum Priority {
-        ZERO,
-        LOW,
-        MEDIUM,
-        HIGH
-    }
-
     protected abstract Priority getPriority();
 
     @Override
@@ -19,5 +12,12 @@ abstract public class AbstractBinaryOperator implements BinaryOperator {
         final AbstractBinaryOperator other = (AbstractBinaryOperator) binaryOperator;
         return getPriority().compareTo(other.getPriority());
 
+    }
+
+    static enum Priority {
+        ZERO,
+        LOW,
+        MEDIUM,
+        HIGH
     }
 }

@@ -11,73 +11,67 @@ import java.util.Deque;
 import java.util.StringTokenizer;
 
 /**
+ * Converter from infix to postfix notation.
+ *
  * @author Alex Geta
  */
 public class InfixToPostfixConverter {
 
-    private final StringBuilder output = new StringBuilder();
-    private final BinaryOperatorFactory operatorFactory = new BinaryOperatorFactory();
-    private final Deque<BinaryOperator> stack = new ArrayDeque<BinaryOperator>();
-    private final OperatorVisitor visitor = new OperatorVisitor(this);
-    final String WHITE_SPACE = " ";
-
     static Logger LOGGER = LoggerFactory.getLogger(InfixToPostfixConverter.class);
+    final String WHITE_SPACE = " ";
+    private final StringBuilder result = new StringBuilder();
+    private final BinaryOperatorFactory operatorFactory = new BinaryOperatorFactory();
+    private final Deque<BinaryOperator> operatorsStack = new ArrayDeque<BinaryOperator>();
+    private final OperatorVisitor visitor = new OperatorVisitor(result, operatorsStack);
 
-    public Deque<BinaryOperator> getStack() {
-        return stack;
-    }
-
-    public StringBuilder getOutput() {
-        return output;
-    }
-
-    public String convert(String mathExpression){
+    /**
+     * Converts math expression from infix to postfix notation
+     *
+     * @param mathExpression string in infix notation.
+     * @return result string in postfix notation.
+     */
+    public String convert(String mathExpression) {
         final String DELIMITERS = " +-*/()^";
-
         final StringTokenizer tokenizer = new StringTokenizer(mathExpression, DELIMITERS, true);
 
-        while (tokenizer.hasMoreTokens()){
-
+        while (tokenizer.hasMoreTokens()) {
             final String currentToken = nextToken(tokenizer);
-
             try {
-                LOGGER.debug("trying to parse double value from token "+currentToken);
+                LOGGER.debug("trying to parse double value from token " + currentToken);
                 Double value = Double.parseDouble(currentToken);
-                output.append(value).append(WHITE_SPACE);
-                LOGGER.info("double value "+value+" has successfully parsed and add to output string");
+                result.append(value).append(WHITE_SPACE);
+                LOGGER.info("double value " + value + " has successfully parsed and added to result string");
                 continue;
             } catch (NumberFormatException e) {
-                LOGGER.info("token "+currentToken+" is not a digital value");
+                LOGGER.info("token " + currentToken + " is not a digital value");
             }
-
             final BinaryOperator binaryOperator = operatorFactory.create(currentToken);
-
-            if(binaryOperator != null){
-                LOGGER.debug("process binary operator "+binaryOperator.getClass().getSimpleName());
+            if (binaryOperator != null) {
+                LOGGER.debug("process binary operator " + binaryOperator.getClass().getSimpleName());
                 binaryOperator.accept(visitor);
-            }else throw new IllegalArgumentException("Unknown token "+"'"+currentToken+"'");
-
+            } else throw new IllegalArgumentException("Unknown token \"" + currentToken + "\"");
         }
-
         outputRemainingTokens();
-        return output.toString();
+        return result.toString();
     }
 
-    private void outputRemainingTokens(){
-        while (stack.peek()!=null){
-            append(stack.pop());
+    private void outputRemainingTokens() {
+        while (!operatorsStack.isEmpty()) {
+            append(operatorsStack.pop());
         }
     }
 
-    private void append(BinaryOperator operator){
-        if(operator.getClass() != LeftBracket.class){
-            output.append(operator.getPresentation()).append(WHITE_SPACE);
-        }else throw new IllegalArgumentException("Closing bracket missed");
+    /*checks for unclosed bracket and append operator to result string*/
+    private void append(BinaryOperator operator) {
+        if (operator.getClass() != LeftBracket.class) {
+            result.append(operator.getPresentation()).append(WHITE_SPACE);
+        } else throw new IllegalArgumentException("Closing bracket missed");
     }
 
-    private String nextToken(StringTokenizer tokenizer){
+    /*skip white spaces and get next token*/
+    private String nextToken(StringTokenizer tokenizer) {
         String nextToken = tokenizer.nextToken();
-        while (nextToken.equals(WHITE_SPACE)){
+        while (nextToken.equals(WHITE_SPACE)) {
             nextToken = tokenizer.nextToken();
         }
         return nextToken;

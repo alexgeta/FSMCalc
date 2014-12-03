@@ -1,7 +1,9 @@
 package com.teamdev.calculator.impl.operators;
 
 import com.teamdev.calculator.impl.converter.OperatorVisitor;
+
 import static com.teamdev.calculator.impl.operators.AbstractBinaryOperator.Priority.ZERO;
+
 /**
  * @author Alex Geta
  */

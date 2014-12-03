@@ -27,11 +27,15 @@ public class CalculatorGUI {
     private final String CLEAR_BUTTON = "C";
 
 
-    public CalculatorGUI(){
+    public CalculatorGUI() {
         configureGUI();
     }
 
-    private void configureGUI(){
+    public static void main(String[] args) {
+        CalculatorGUI calculatorGUI = new CalculatorGUI();
+    }
+
+    private void configureGUI() {
 
         mainFrame.setTitle(TITLE);
         mainFrame.setSize(WIDTH, HEIGHT);
@@ -60,12 +64,18 @@ public class CalculatorGUI {
 
     }
 
+    private void clearAllField() {
+        inputField.setText("");
+        resultField.setText("");
+        errorMessageLabel.setText("");
+    }
+
     private class ButtonClickListener implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent ev) {
 
-            String command = e.getActionCommand();
-            if(command.equals(EQUALS_BUTTON)){
+            String command = ev.getActionCommand();
+            if (command.equals(EQUALS_BUTTON)) {
 
                 errorMessageLabel.setText("");
                 final String mathExpression = (inputField.getText());
@@ -73,26 +83,14 @@ public class CalculatorGUI {
                 String result = null;
                 try {
                     result = String.valueOf(calculator.evaluate(mathExpression));
-                } catch (Exception e1) {
-                    errorMessageLabel.setText(e1.getMessage());
+                } catch (Exception ex) {
+                    errorMessageLabel.setText(ex.getMessage());
                 }
 
                 resultField.setText(result);
-            }
-            else if(command.equals(CLEAR_BUTTON)){
+            } else if (command.equals(CLEAR_BUTTON)) {
                 clearAllField();
             }
         }
-    }
-
-    private void clearAllField(){
-        inputField.setText("");
-        resultField.setText("");
-        errorMessageLabel.setText("");
-    }
-
-    public static void main(String[] args){
-        CalculatorGUI calculatorGUI = new CalculatorGUI();
-
     }
 }

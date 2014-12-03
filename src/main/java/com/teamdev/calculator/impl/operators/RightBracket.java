@@ -5,7 +5,7 @@ import com.teamdev.calculator.impl.converter.OperatorVisitor;
 /**
  * @author Alex Geta
  */
-public class RightBracket extends AbstractBinaryOperator{
+public class RightBracket extends AbstractBinaryOperator {
     @Override
     protected Priority getPriority() {
         return null;

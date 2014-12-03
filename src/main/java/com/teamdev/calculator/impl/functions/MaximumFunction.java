@@ -14,4 +14,9 @@ public class MaximumFunction implements MathFunction {
     public double calculate(List<Double> arguments) {
         return Collections.max(arguments);
     }
+
+    @Override
+    public String toString() {
+        return "Max function";
+    }
 }

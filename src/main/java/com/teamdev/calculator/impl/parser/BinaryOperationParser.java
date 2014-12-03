@@ -10,7 +10,7 @@ public class BinaryOperationParser implements MathExpressionParser {
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
 
-        if(context.getExpressionReader().endOfExpression()){
+        if (context.getExpressionReader().endOfExpression()) {
             return null;
         }
 
@@ -19,7 +19,7 @@ public class BinaryOperationParser implements MathExpressionParser {
         final String currentToken = String.valueOf(expressionReader.currentChar());
         final BinaryOperator binaryOperator = factory.create(currentToken);
 
-        if(binaryOperator == null){
+        if (binaryOperator == null) {
             return null;
         }
 
@@ -36,7 +36,7 @@ public class BinaryOperationParser implements MathExpressionParser {
 
     }
 
-    private Double[] getTwoLastOperands(EvaluationStack stack){
+    private Double[] getTwoLastOperands(EvaluationStack stack) {
         Double[] operands = new Double[2];
         operands[1] = stack.getOperandStack().pop();
         operands[0] = stack.getOperandStack().pop();

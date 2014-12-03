@@ -14,4 +14,9 @@ public class MinimumFunction implements MathFunction {
     public double calculate(List<Double> arguments) {
         return Collections.min(arguments);
     }
+
+    @Override
+    public String toString() {
+        return "Min function";
+    }
 }
