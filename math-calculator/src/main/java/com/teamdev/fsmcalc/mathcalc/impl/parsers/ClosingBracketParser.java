@@ -22,14 +22,14 @@ public class ClosingBracketParser implements MathTokenParser {
         final String CLOSING_BRACKET = ")";
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final String currentToken = expressionReader.getCurrentToken();
-        if(!equal(currentToken, CLOSING_BRACKET)) return null;
+        if (!equal(currentToken, CLOSING_BRACKET)) return null;
         expressionReader.nextToken();
 
         return new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) {
 
-                if(!stack.getFunctionsStack().isEmpty()){
+                if (!stack.getFunctionsStack().isEmpty()) {
                     processMathFunction(stack);
                     return;
                 }
@@ -52,12 +52,12 @@ public class ClosingBracketParser implements MathTokenParser {
         };
     }
 
-    private void processMathFunction(EvaluationStack stack){
+    private void processMathFunction(EvaluationStack stack) {
         final MathFunction mathFunction = stack.getFunctionsStack().pop();
         final Deque<Double> operandStack = stack.getOperandStack();
         final List<Double> functionArguments = new ArrayList<Double>();
         final int argumentsNumber = ((AbstractMathFunction) mathFunction).getArgsCounter();
-        for(int i = 0; i < argumentsNumber; i++){
+        for (int i = 0; i < argumentsNumber; i++) {
             functionArguments.add(operandStack.pop());
         }
         final Double result = mathFunction.calculate(functionArguments);

@@ -4,7 +4,7 @@ public abstract class FiniteStateMachine<State extends Enum,
         Context extends StateMachineContext<State, Context>,
         Result> {
 
-    public Result run(Context context){
+    public Result run(Context context) {
 
         final TransitionMatrix<State> matrix = context.getTransitionMatrix();
         State currentState = matrix.getStartState();

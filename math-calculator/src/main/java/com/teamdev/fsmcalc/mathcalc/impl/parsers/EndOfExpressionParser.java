@@ -17,7 +17,7 @@ public class EndOfExpressionParser implements MathTokenParser {
             public void evaluate(EvaluationStack stack) {
                 final Deque<BinaryOperator> operatorsStack = stack.getOperatorsStack();
                 final Deque<Double> operandStack = stack.getOperandStack();
-                while (!operatorsStack.isEmpty()){
+                while (!operatorsStack.isEmpty()) {
                     final BinaryOperator topOfStackOperator = operatorsStack.pop();
                     final Double rightOperand;
                     final Double leftOperand;

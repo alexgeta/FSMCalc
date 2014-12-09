@@ -31,7 +31,7 @@ public class BinaryOperationParser implements MathTokenParser {
                 final Deque<Double> operandStack = stack.getOperandStack();
                 /*due to right precedence of power binary operator,
                 comparative difference must be 0 only in this case*/
-                if(currentBinaryOperator.getClass() == PowerBinaryOperator.class) difference = 0;
+                if (currentBinaryOperator.getClass() == PowerBinaryOperator.class) difference = 0;
                 BinaryOperator topOfStackOperator = operatorsStack.peek();
 
                 while (!operatorsStack.isEmpty() && topOfStackOperator.compareTo(currentBinaryOperator) > difference) {

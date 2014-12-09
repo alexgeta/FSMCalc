@@ -8,9 +8,9 @@ import java.util.List;
 public class SqrtMathFunction extends AbstractMathFunction {
     @Override
     public Double calculate(List<Double> arguments) {
-        if(arguments.size() == 1){
+        if (arguments.size() == 1) {
             return Math.sqrt(arguments.get(0));
-        }else throw new IllegalArgumentException(
-                "Sqrt function requires 1 argument, but : "+arguments.size());
+        } else throw new IllegalArgumentException(
+                "Sqrt function requires 1 argument, but : " + arguments.size());
     }
 }

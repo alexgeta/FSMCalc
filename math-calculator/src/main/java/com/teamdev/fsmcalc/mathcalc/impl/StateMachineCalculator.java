@@ -15,7 +15,7 @@ public class StateMachineCalculator extends FiniteStateMachine<State, Evaluation
     protected void deadlock(EvaluationContext context, State currentState) {
         final String currentToken = context.getExpressionReader().getCurrentToken();
         final int tokenPosition = context.getExpressionReader().getTokenPosition();
-        throw new IllegalArgumentException("Not allowed token \""+ currentToken +"\" at position " + tokenPosition);
+        throw new IllegalArgumentException("Not allowed token \"" + currentToken + "\" at position " + tokenPosition);
     }
 
     @Override

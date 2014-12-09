@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static com.teamdev.fsmcalc.mathcalc.impl.State.*;
 import static java.util.EnumSet.noneOf;
 import static java.util.EnumSet.of;
-import static com.teamdev.fsmcalc.mathcalc.impl.State.*;
 
 public class EvaluationMatrix implements TransitionMatrix<State> {
 

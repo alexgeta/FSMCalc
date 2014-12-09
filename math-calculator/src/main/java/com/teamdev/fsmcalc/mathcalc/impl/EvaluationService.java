@@ -5,6 +5,7 @@ import com.teamdev.fsmcalc.mathcalc.impl.parsers.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import static com.teamdev.fsmcalc.mathcalc.impl.State.*;
 
 public class EvaluationService implements StateAcceptor<State, EvaluationContext> {

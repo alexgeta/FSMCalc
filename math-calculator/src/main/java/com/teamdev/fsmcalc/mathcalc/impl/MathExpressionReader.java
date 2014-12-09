@@ -10,14 +10,14 @@ public class MathExpressionReader {
     private int tokenPosition = 0;
 
     public MathExpressionReader(String mathExpression) {
-        if(mathExpression.length() < 3) throw new IllegalArgumentException(
+        if (mathExpression.length() < 3) throw new IllegalArgumentException(
                 "Expression must contain at least 3 char");
         final String DELIMITERS = " ,+-*/()^";
-        this.tokenizer = new StringTokenizer( mathExpression, DELIMITERS, true);
+        this.tokenizer = new StringTokenizer(mathExpression, DELIMITERS, true);
         nextToken();
     }
 
-    public String nextToken(){
+    public String nextToken() {
         final String WHITE_SPACE = " ";
         try {
             currentToken = tokenizer.nextToken();
@@ -31,7 +31,7 @@ public class MathExpressionReader {
         return currentToken;
     }
 
-    public String getCurrentToken(){
+    public String getCurrentToken() {
         return currentToken;
     }
 
@@ -39,7 +39,7 @@ public class MathExpressionReader {
         return tokenPosition;
     }
 
-    public boolean isEndOfExpression(){
+    public boolean isEndOfExpression() {
         return currentToken == null;
     }
 

@@ -10,7 +10,7 @@ public class NumberParser implements MathTokenParser {
     public EvaluationCommand parse(EvaluationContext context) {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
-        if(expressionReader.isEndOfExpression()) return null;
+        if (expressionReader.isEndOfExpression()) return null;
 
         final Double value;
         try {
@@ -26,7 +26,7 @@ public class NumberParser implements MathTokenParser {
                 stack.getOperandStack().push(value);
                 /*if we are currently inside math function body,
                 then currently parsed number belongs to top of stack function as argument*/
-                if(!stack.getFunctionsStack().isEmpty()){
+                if (!stack.getFunctionsStack().isEmpty()) {
                     ((AbstractMathFunction) stack.getFunctionsStack().peek()).incrementArgsCounter();
                 }
             }

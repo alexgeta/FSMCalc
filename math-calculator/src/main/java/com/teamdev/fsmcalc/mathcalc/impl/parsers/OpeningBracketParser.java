@@ -17,14 +17,14 @@ public class OpeningBracketParser implements MathTokenParser {
         final String OPENING_BRACKET = "(";
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final String currentToken = expressionReader.getCurrentToken();
-        if(!equal(currentToken, OPENING_BRACKET)) return null;
+        if (!equal(currentToken, OPENING_BRACKET)) return null;
         expressionReader.nextToken();
 
         return new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) {
                 /*if we are currently not inside math function body*/
-                if(stack.getFunctionsStack().isEmpty()){
+                if (stack.getFunctionsStack().isEmpty()) {
                     stack.getOperatorsStack().push(new OpeningBracket());
                 }/*else skip opening bracket*/
             }
