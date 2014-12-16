@@ -11,7 +11,6 @@ abstract public class AbstractBinaryOperator implements BinaryOperator {
 
         final AbstractBinaryOperator other = (AbstractBinaryOperator) binaryOperator;
         return getPriority().compareTo(other.getPriority());
-
     }
 
     static enum Priority {

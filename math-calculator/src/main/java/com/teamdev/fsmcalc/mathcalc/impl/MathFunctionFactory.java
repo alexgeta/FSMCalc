@@ -42,9 +42,7 @@ public class MathFunctionFactory {
 
     public MathFunction create(String functionName) {
         final FunctionCreator functionCreator = functions.get(functionName);
-        if (functionCreator != null) {
-            return functionCreator.createFunction();
-        } else return null;
+        return functionCreator != null ? functionCreator.createFunction() : null;
     }
 
     private interface FunctionCreator {

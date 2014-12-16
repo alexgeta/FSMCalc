@@ -3,8 +3,9 @@ package com.teamdev.fsmcalc.mathcalc.impl;
 import com.teamdev.fsmcalc.fsm.StateAcceptor;
 import com.teamdev.fsmcalc.fsm.StateMachineContext;
 import com.teamdev.fsmcalc.fsm.TransitionMatrix;
+import com.teamdev.fsmcalc.mathcalc.EvaluationException;
 
-public class EvaluationContext implements StateMachineContext<State, EvaluationContext> {
+public class EvaluationContext implements StateMachineContext<State, EvaluationContext, EvaluationException> {
 
     private final EvaluationMatrix matrix = new EvaluationMatrix();
     private final EvaluationService evaluationService = new EvaluationService();
@@ -39,7 +40,7 @@ public class EvaluationContext implements StateMachineContext<State, EvaluationC
     }
 
     @Override
-    public StateAcceptor<State, EvaluationContext> getStateAcceptor() {
+    public StateAcceptor<State, EvaluationContext, EvaluationException> getStateAcceptor() {
         return evaluationService;
     }
 }

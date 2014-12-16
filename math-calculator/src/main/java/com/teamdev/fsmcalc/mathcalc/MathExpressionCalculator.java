@@ -2,5 +2,6 @@ package com.teamdev.fsmcalc.mathcalc;
 
 public interface MathExpressionCalculator {
 
-    double evaluate(String mathExpression);
+    Double evaluate(String mathExpression) throws EvaluationException;
+    Double[] evaluatePack(String expressions) throws EvaluationException;
 }

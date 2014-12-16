@@ -1,5 +1,6 @@
 package com.teamdev.fsmcalc.mathcalc.impl.parsers;
 
+import com.teamdev.fsmcalc.mathcalc.EvaluationException;
 import com.teamdev.fsmcalc.mathcalc.impl.*;
 import com.teamdev.fsmcalc.mathcalc.impl.functions.AbstractMathFunction;
 import com.teamdev.fsmcalc.mathcalc.impl.operators.OpeningBracket;
@@ -23,11 +24,10 @@ public class ClosingBracketParser implements MathTokenParser {
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final String currentToken = expressionReader.getCurrentToken();
         if (!equal(currentToken, CLOSING_BRACKET)) return null;
-        expressionReader.nextToken();
 
         return new EvaluationCommand() {
             @Override
-            public void evaluate(EvaluationStack stack) {
+            public void evaluate(EvaluationStack stack) throws EvaluationException {
 
                 if (!stack.getFunctionsStack().isEmpty()) {
                     processMathFunction(stack);
@@ -46,7 +46,7 @@ public class ClosingBracketParser implements MathTokenParser {
                         topOfStackOperator = operatorsStack.pop();
                     }
                 } catch (NoSuchElementException e) {
-                    throw new IllegalArgumentException("Opening bracket missed");
+                    throw new EvaluationException("Opening bracket missed");
                 }
             }
         };
@@ -56,8 +56,8 @@ public class ClosingBracketParser implements MathTokenParser {
         final MathFunction mathFunction = stack.getFunctionsStack().pop();
         final Deque<Double> operandStack = stack.getOperandStack();
         final List<Double> functionArguments = new ArrayList<Double>();
-        final int argumentsNumber = ((AbstractMathFunction) mathFunction).getArgsCounter();
-        for (int i = 0; i < argumentsNumber; i++) {
+        final int argumentsAmount = ((AbstractMathFunction) mathFunction).getArgsCounter();
+        for (int i = 0; i < argumentsAmount; i++) {
             functionArguments.add(operandStack.pop());
         }
         final Double result = mathFunction.calculate(functionArguments);

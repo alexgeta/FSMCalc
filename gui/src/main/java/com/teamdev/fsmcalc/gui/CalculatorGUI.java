@@ -1,5 +1,7 @@
 package com.teamdev.fsmcalc.gui;
 
+import com.teamdev.fsmcalc.mathcalc.EvaluationException;
+import com.teamdev.fsmcalc.mathcalc.MathExpressionCalculator;
 import com.teamdev.fsmcalc.mathcalc.impl.StateMachineCalculator;
 
 import javax.swing.*;
@@ -19,7 +21,7 @@ public class CalculatorGUI {
     private final JTextField resultField = new JTextField();
     private final JButton clearButton = new JButton();
     private final ActionListener buttonListener = new ButtonClickListener();
-    private final StateMachineCalculator calculator = new StateMachineCalculator();
+    private final MathExpressionCalculator calculator = new StateMachineCalculator();
     private final JLabel errorMessageLabel = new JLabel();
     private final int WIDTH = 650;
     private final int HEIGHT = 90;
@@ -59,7 +61,6 @@ public class CalculatorGUI {
         mainFrame.add(resultField);
         mainFrame.add(clearButton);
         mainFrame.add(errorMessageLabel);
-
     }
 
     private void clearAllField() {

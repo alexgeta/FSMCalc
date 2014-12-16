@@ -1,5 +1,7 @@
 package com.teamdev.fsmcalc.mathcalc.impl.functions;
 
+import com.google.common.base.Preconditions;
+
 import java.util.List;
 
 /**
@@ -8,9 +10,8 @@ import java.util.List;
 public class SqrtMathFunction extends AbstractMathFunction {
     @Override
     public Double calculate(List<Double> arguments) {
-        if (arguments.size() == 1) {
-            return Math.sqrt(arguments.get(0));
-        } else throw new IllegalArgumentException(
+        Preconditions.checkArgument(arguments.size() == 1,
                 "Sqrt function requires 1 argument, but : " + arguments.size());
+        return Math.sqrt(arguments.get(0));
     }
 }

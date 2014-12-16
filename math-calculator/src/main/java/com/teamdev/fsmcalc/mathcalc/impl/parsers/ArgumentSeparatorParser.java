@@ -11,16 +11,14 @@ public class ArgumentSeparatorParser implements MathTokenParser {
 
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
-        final String ARGS_SEPARATOR = ",";
+        final String ARGUMENT_SEPARATOR = ",";
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final String currentToken = expressionReader.getCurrentToken();
-        if (!equal(currentToken, ARGS_SEPARATOR)) return null;
-        expressionReader.nextToken();
+        if (!equal(currentToken, ARGUMENT_SEPARATOR)) return null;
 
         return new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) {
-
             }
         };
     }

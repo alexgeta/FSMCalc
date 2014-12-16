@@ -1,6 +1,7 @@
 package com.teamdev.fsmcalc.mathcalc.impl;
 
 import com.teamdev.fsmcalc.fsm.StateAcceptor;
+import com.teamdev.fsmcalc.mathcalc.EvaluationException;
 import com.teamdev.fsmcalc.mathcalc.impl.parsers.*;
 
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 import static com.teamdev.fsmcalc.mathcalc.impl.State.*;
 
-public class EvaluationService implements StateAcceptor<State, EvaluationContext> {
+public class EvaluationService implements StateAcceptor<State, EvaluationContext, EvaluationException> {
 
     private final Map<State, MathTokenParser> parsers = new HashMap<State, MathTokenParser>() {{
         put(NUMBER, new NumberParser());
@@ -21,14 +22,17 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
     }};
 
     @Override
-    public boolean acceptState(EvaluationContext context, State possibleState) {
+    public boolean acceptState(EvaluationContext context, State possibleState) throws EvaluationException {
 
+        if (context.getExpressionReader().isEndOfExpression() &&
+                possibleState != FINISH) return false;
         final MathTokenParser parser = parsers.get(possibleState);
         if (parser == null) {
             throw new IllegalStateException("Parser not found for state: " + possibleState);
         }
         final EvaluationCommand evaluationCommand = parser.parse(context);
         if (evaluationCommand == null) return false;
+        context.getExpressionReader().nextToken();
         evaluationCommand.evaluate(context.getEvaluationStack());
         return true;
     }

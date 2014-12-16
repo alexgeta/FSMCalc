@@ -10,7 +10,6 @@ import static com.google.common.base.Objects.equal;
  */
 public class OpeningBracketParser implements MathTokenParser {
 
-
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
 
@@ -18,15 +17,15 @@ public class OpeningBracketParser implements MathTokenParser {
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final String currentToken = expressionReader.getCurrentToken();
         if (!equal(currentToken, OPENING_BRACKET)) return null;
-        expressionReader.nextToken();
 
         return new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) {
-                /*if we are currently not inside math function body*/
+                /*if we are currently not inside math function body,
+                then do default processing of OpeningBracket token*/
                 if (stack.getFunctionsStack().isEmpty()) {
                     stack.getOperatorsStack().push(new OpeningBracket());
-                }/*else skip opening bracket*/
+                }/*otherwise skip opening bracket*/
             }
         };
     }

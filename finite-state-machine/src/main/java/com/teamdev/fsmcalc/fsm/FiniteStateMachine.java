@@ -1,10 +1,11 @@
 package com.teamdev.fsmcalc.fsm;
 
 public abstract class FiniteStateMachine<State extends Enum,
-        Context extends StateMachineContext<State, Context>,
-        Result> {
+        Context extends StateMachineContext<State, Context, FSMException>,
+        Result,
+        FSMException extends Exception> {
 
-    public Result run(Context context) {
+    public Result run(Context context) throws FSMException {
 
         final TransitionMatrix<State> matrix = context.getTransitionMatrix();
         State currentState = matrix.getStartState();
@@ -21,9 +22,9 @@ public abstract class FiniteStateMachine<State extends Enum,
         return finish(context);
     }
 
-    private State moveForward(Context context, State currentState) {
+    private State moveForward(Context context, State currentState) throws FSMException {
 
-        final StateAcceptor<State, Context> stateAcceptor = context.getStateAcceptor();
+        final StateAcceptor<State, Context, FSMException> stateAcceptor = context.getStateAcceptor();
         final TransitionMatrix<State> matrix = context.getTransitionMatrix();
 
         for (State possibleState : matrix.getPossibleStates(currentState)) {
@@ -34,7 +35,7 @@ public abstract class FiniteStateMachine<State extends Enum,
         return null;
     }
 
-    abstract protected void deadlock(Context context, State currentState);
+    abstract protected void deadlock(Context context, State currentState) throws FSMException;
 
     abstract protected Result finish(Context context);
 }
